@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Timer</title>
+</head>
+<body>
+    <h1>Timer</h1>
+    <label for="timer">Set Timer (in seconds):</label>
+    <input type="number" id="timer" min="1" value="60">
+    <button id="startPauseButton" onclick="startPauseTimer()">Start</button>
+    <div id="countdown"></div>
+
+    <script>
+        var countdownInterval;
+        var isTimerRunning = false;
+        var remainingSeconds = 0;
+
+        function startPauseTimer() {
+            var timerInput = document.getElementById("timer");
+            var countdownDiv = document.getElementById("countdown");
+            var seconds = parseInt(timerInput.value);
+
+            if (isTimerRunning) {
+                clearInterval(countdownInterval);
+                document.getElementById("startPauseButton").innerHTML = "Start";
+                isTimerRunning = false;
+            } else {
+                if (remainingSeconds === 0) {
+                    remainingSeconds = seconds;
+                }
+
+                countdownInterval = setInterval(function() {
+                    countdownDiv.innerHTML = remainingSeconds;
+                    remainingSeconds--;
+
+                    if (remainingSeconds < 0) {
+                        clearInterval(countdownInterval);
+                        countdownDiv.innerHTML = "Time's up!";
+                        remainingSeconds = 0;
+                    }
+                }, 1000);
+
+                document.getElementById("startPauseButton").innerHTML = "Pause";
+                isTimerRunning = true;
+            }
+        }
+    </script>
+</body>
+</html>
