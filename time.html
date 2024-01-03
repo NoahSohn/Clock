@@ -152,10 +152,6 @@
                     case "14":
                         locationString = "Time in UTC " + timeZone + ": " + timeString + " (Kiritimati)";
                         break;
-                    // Add more time zones and their corresponding cities as needed
-                    default:
-                        locationString = "Time in UTC " + timeZone + ": " + timeString;
-                        break;
                 }
 
                 timeElements[i].innerHTML = locationString;
@@ -170,202 +166,29 @@
     <div class="container">
         <h1 class="center-align">World Clock</h1>
         <div class="section">
-            <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
-                    <span class="card-title center-align time" data-timezone="-12"></span>
-                </div>
-            </div>
-            <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
-                    <span class="card-title center-align time" data-timezone="-11"></span>
-                </div>
-            </div>
-            <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
-                    <span class="card-title center-align time" data-timezone="-10"></span>
-                </div>
-            </div>
-            <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
-                    <span class="card-title center-align time" data-timezone="-9.5"></span>
-                </div>
-            </div>
-            <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
-                    <span class="card-title center-align time" data-timezone="-9"></span>
-                </div>
-            </div>
-            <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
-                    <span class="card-title center-align time" data-timezone="-8"></span>
-                </div>
-            </div>
-            <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
-                    <span class="card-title center-align time" data-timezone="-7"></span>
-                </div>
-            </div>
-            <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
-                    <span class="card-title center-align time" data-timezone="-6"></span>
-                </div>
-            </div>
-            <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
-                    <span class="card-title center-align time" data-timezone="-5"></span>
-                </div>
-            </div>
-            <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
-                    <span class="card-title center-align time" data-timezone="-4"></span>
-                </div>
-            </div>
-            <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
-                    <span class="card-title center-align time" data-timezone="-3.5"></span>
-                </div>
-            </div>
-            <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
-                    <span class="card-title center-align time" data-timezone="-3"></span>
-                </div>
-            </div>
-            <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
-                    <span class="card-title center-align time" data-timezone="-2"></span>
-                </div>
-            </div>
-            <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
-                    <span class="card-title center-align time" data-timezone="-1"></span>
-                </div>
-            </div>
-            <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
-                    <span class="card-title center-align time" data-timezone="0"></span>
-                </div>
-            </div>
-            <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
-                    <span class="card-title center-align time" data-timezone="1"></span>
-                </div>
-            </div>
-            <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
-                    <span class="card-title center-align time" data-timezone="2"></span>
-                </div>
-            </div>
-            <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
-                    <span class="card-title center-align time" data-timezone="3"></span>
-                </div>
-            </div>
-            <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
-                    <span class="card-title center-align time" data-timezone="3.5"></span>
-                </div>
-            </div>
-            <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
-                    <span class="card-title center-align time" data-timezone="4"></span>
-                </div>
-            </div>
-            <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
-                    <span class="card-title center-align time" data-timezone="4.5"></span>
-                </div>
-            </div>
-            <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
-                    <span class="card-title center-align time" data-timezone="5"></span>
-                </div>
-            </div>
-            <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
-                    <span class="card-title center-align time" data-timezone="5.5"></span>
-                </div>
-            </div>
-            <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
-                    <span class="card-title center-align time" data-timezone="5.75"></span>
-                </div>
-            </div>
-            <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
-                    <span class="card-title center-align time" data-timezone="6"></span>
-                </div>
-            </div>
-            <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
-                    <span class="card-title center-align time" data-timezone="6.5"></span>
-                </div>
-            </div>
-            <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
-                    <span class="card-title center-align time" data-timezone="7"></span>
-                </div>
-            </div>
-            <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
-                    <span class="card-title center-align time" data-timezone="8"></span>
-                </div>
-            </div>
-            <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
-                    <span class="card-title center-align time" data-timezone="8.75"></span>
-                </div>
-            </div>
-            <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
-                    <span class="card-title center-align time" data-timezone="9"></span>
-                </div>
-            </div>
-            <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
-                    <span class="card-title center-align time" data-timezone="9.5"></span>
-                </div>
-            </div>
-            <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
-                    <span class="card-title center-align time" data-timezone="10"></span>
-                </div>
-            </div>
-            <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
-                    <span class="card-title center-align time" data-timezone="10.5"></span>
-                </div>
-            </div>
-            <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
-                    <span class="card-title center-align time" data-timezone="11"></span>
-                </div>
-            </div>
-            <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
-                    <span class="card-title center-align time" data-timezone="11.5"></span>
-                </div>
-            </div>
-            <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
-                    <span class="card-title center-align time" data-timezone="12"></span>
-                </div>
-            </div>
-            <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
-                    <span class="card-title center-align time" data-timezone="12.75"></span>
-                </div>
-            </div>
-            <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
-                    <span class="card-title center-align time" data-timezone="13"></span>
-                </div>
-            </div>
-            <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
-                    <span class="card-title center-align time" data-timezone="14"></span>
-                </div>
-            </div>
-            <!-- Add more time zones and their corresponding cities as needed -->
+            <script>
+                const timezones = [
+                    -12, -11, -10, -9.5, -9, -8, -7, -6, -5, -4, -3.5, -3, -2, -1, 0, 1, 2, 3, 3.5, 4, 4.5, 5, 5.5, 5.75, 6, 6.5, 7, 8, 8.75, 9, 9.5, 10, 10.5, 11, 11.5, 12, 12.75, 13, 14
+                ];
+
+                const container = document.querySelector('.section');
+
+                timezones.forEach(timezone => {
+                    const card = document.createElement('div');
+                    card.className = 'card blue-grey darken-1';
+
+                    const cardContent = document.createElement('div');
+                    cardContent.className = 'card-content white-text';
+
+                    const cardTitle = document.createElement('span');
+                    cardTitle.className = 'card-title center-align time';
+                    cardTitle.setAttribute('data-timezone', timezone);
+
+                    cardContent.appendChild(cardTitle);
+                    card.appendChild(cardContent);
+                    container.appendChild(card);
+                });
+            </script>
         </div>
     </div>
 </body>
