@@ -1,199 +1,171 @@
+<!-- HTML structure -->
 <!DOCTYPE html>
 <html>
-<head>
-    <title>World Clock</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th, td {
-            padding: 8px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-
-        th {
-            position: sticky;
-            top: 0;
-            background-color: white;
-        }
-
-        td {
-            position: sticky;
-            top: 40px; /* Adjust the value based on your table heading height */
-            background-color: white;
-        }
-    </style>
-    <script>
-        function updateTime() {
-            var currentTime = new Date();
-            var timeElements = document.getElementsByClassName("time");
-
-            for (var i = 0; i < timeElements.length; i++) {
-                var timeZone = timeElements[i].getAttribute("data-timezone");
-                var userTimeZoneOffset = currentTime.getTimezoneOffset();
-                var timeZoneOffset = (timeZone * 60) + userTimeZoneOffset;
-                var time = new Date(currentTime.getTime() + timeZoneOffset * 60000);
-
-                var hours = time.getHours();
-                var minutes = time.getMinutes();
-                var seconds = time.getSeconds();
-                var tenths = Math.floor(time.getMilliseconds() / 100);
-                var period = hours >= 12 ? "PM" : "AM";
-
-                // Convert to 12-hour format
-                hours = hours % 12 || 12;
-
-                // Add leading zeros if necessary
-                minutes = minutes < 10 ? "0" + minutes : minutes;
-                seconds = seconds < 10 ? "0" + seconds : seconds;
-
-                var timeString = hours + ":" + minutes + ":" + seconds + "." + tenths + " " + period;
-                var locationString = "";
-
-                timeElements[i].innerHTML = locationString;
-            }
-        }
-    </script>
-</head>
-<body>
-    <div class="container">
-        <h1 class="center-align">World Clock</h1>
-        <div class="section">
-            <table>
-                <tr>
-                    <th>Time</th>
-                    <th>UTC</th>
-                    <th>City</th>
-                </tr>
-                <tbody>
-                </tbody>
-                <script>
-                    const timezones = [
-                        -12, -11, -10, -9.5, -9, -8, -7, -6, -5, -4, -3.5, -3, -2, -1, 0, 1, 2, 3, 3.5, 4, 4.5, 5, 5.5, 5.75, 6, 6.5, 7, 8, 8.75, 9, 9.5, 10, 10.5, 11, 11.5, 12, 12.75, 13, 14
-                    ];
-
-                    const tableBody = document.querySelector('tbody');
-
-                    timezones.forEach(timezone => {
-                        const time = new Date();
-                        const timeZoneOffset = (timezone * 60) + time.getTimezoneOffset();
-                        const city = getTimezoneCity(timezone);
-
-                        const row = document.createElement('tr');
-                        const timeCell = document.createElement('td');
-                        const utcCell = document.createElement('td');
-                        const cityCell = document.createElement('td');
-
-                        timeCell.textContent = getTimeString(time, timeZoneOffset);
-                        utcCell.textContent = 'UTC ' + timezone;
-                        cityCell.textContent = city;
-
-                        row.appendChild(timeCell);
-                        row.appendChild(utcCell);
-                        row.appendChild(cityCell);
-                        tableBody.appendChild(row);
-                    });
-
-                    function getTimeString(time, offset) {
-                        const timeInMilliseconds = time.getTime() + offset * 60000;
-                        const formattedTime = new Date(timeInMilliseconds).toLocaleTimeString('en-US', { hour12: true, hour: 'numeric', minute: 'numeric', second: 'numeric' });
-                        return formattedTime;
-                    }
-                    
-                    function getTimezoneCity(timezone) {
-                        var timeZoneNumber = Number(timezone);
-                        switch (timeZoneNumber) {
-                            case new Date().getTimezoneOffset() / 60:
-                                return 'Your Local Time';
-                            case -12:
-                                return "Baker Island";
-                            case -11:
-                                return "Pago Pago";
-                            case -10:
-                                return "Honolulu";
-                            case -9.5:
-                                return "Marquesas Islands";
-                            case -9:
-                                return "Anchorage";
-                            case -8:
-                                return "Los Angeles";
-                            case -7:
-                                return "Denver";
-                            case -6:
-                                return "Mexico City";
-                            case -5:
-                                return "New York";
-                            case -4:
-                                return "Caracas";
-                            case -3.5:
-                                return "St. John's";
-                            case -3:
-                                return "Buenos Aires";
-                            case -2:
-                                return "South Georgia";
-                            case -1:
-                                return "Azores";
-                            case 0:
-                                return "London";
-                            case 1:
-                                return "Berlin";
-                            case 2:
-                                return "Paris";
-                            case 3:
-                                return "Moscow";
-                            case 3.5:
-                                return "Tehran";
-                            case 4:
-                                return "Dubai";
-                            case 4.5:
-                                return "Kabul";
-                            case 5:
-                                return "Karachi";
-                            case 5.5:
-                                return "Delhi";
-                            case 5.75:
-                                return "Kathmandu";
-                            case 6:
-                                return "Almaty";
-                            case 6.5:
-                                return "Yangon";
-                            case 7:
-                                return "Bangkok";
-                            case 8:
-                                return "Hong Kong";
-                            case 8.75:
-                                return "Eucla";
-                            case 9:
-                                return "Tokyo";
-                            case 9.5:
-                                return "Adelaide";
-                            case 10:
-                                return "Sydney";
-                            case 10.5:
-                                return "Lord Howe Island";
-                            case 11:
-                                return "Noumea";
-                            case 11.5:
-                                return "Norfolk Island";
-                            case 12:
-                                return "Suva";
-                            case 12.75:
-                                return "Chatham Islands";
-                            case 13:
-                                return "Apia";
-                            case 14:
-                                return "Kiritimati";
-                            default:
-                                return "";
-                        }
-                    }
-                </script>
+   <head>
+      <title>World Clock</title>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+      <style>
+         /* Styling for the table */
+         table { width: 100%; border-collapse: collapse; }
+         th, td { padding: 8px; text-align: left; border-bottom: 1px solid #ddd; }
+         th { position: sticky; top: 0; background-color: white; }
+         td { position: sticky; top: 32px; background-color: white; }
+         .local-time { font-size: 24px; }
+      </style>
+   </head>
+   <body>
+      <div class="container">
+         <h1 class="center-align">World Clock</h1>
+         <div class="section">
+            <!-- Card to display local time -->
+            <div class="card blue-grey darken-1">
+               <div class="card-content white-text">
+                  <!-- Placeholder for local time -->
+                  <span class="card-title center-align time" data-timezone="4"></span>
+                  <p id="local-time-card" class="center-align local-time"></p>
+               </div>
+            </div>
+            <!-- Table to display world time -->
+            <table class="striped">
+               <tr>
+                  <th>Time</th>
+                  <th>UTC</th>
+                  <th>City</th>
+               </tr>
+               <tbody id="time-table"></tbody>
             </table>
-        </div>
-    </div>
-</body>
+         </div>
+      </div>
+      <!-- JavaScript code -->
+      <script>
+         // Array of timezones
+         const timezones = [-12, -11, -10, -9.5, -9, -8, -7, -6, -5, -4, -3.5, -3, -2, -1, 0, 1, 2, 3, 3.5, 4, 4.5, 5, 5.5, 5.75, 6, 6.5, 7, 8, 8.75, 9, 9.5, 10, 10.5, 11, 11.5, 12, 12.75, 13, 14];
+         const tableBody = document.getElementById('time-table');
+         
+         // Function to update the local time
+         function updateLocalTime() {
+             const currentTime = new Date();
+             const hours = currentTime.getHours();
+             const minutes = currentTime.getMinutes();
+             const seconds = currentTime.getSeconds();
+             const tenths = Math.floor(currentTime.getMilliseconds() / 100);
+             const period = hours >= 12 ? 'PM' : 'AM';
+             const timeString = `${hours % 12 || 12}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${tenths} ${period}`;
+             document.getElementById('local-time-card').textContent = 'Local Time: ' + timeString;
+         }
+         
+         // Function to update the world time table
+         function updateTable() {
+             tableBody.innerHTML = '';
+             timezones.forEach(timezone => {
+                 const time = new Date();
+                 const timeZoneOffset = (timezone * 60) + time.getTimezoneOffset();
+                 const formattedTime = new Date(time.getTime() + timeZoneOffset * 60000).toLocaleTimeString('en-US', { hour12: false, hour: 'numeric', minute: 'numeric', second: 'numeric' });
+                 const city = getTimezoneCity(timezone);
+                 const row = document.createElement('tr');
+                 row.innerHTML = `<td>${formattedTime}</td><td>UTC ${timezone}</td><td>${city}</td>`;
+                 tableBody.appendChild(row);
+             });
+         }
+         
+         // Function to get the city name for a given timezone
+         function getTimezoneCity(timezone) {
+             var timeZoneNumber = Number(timezone);
+             switch (timeZoneNumber) {
+                 case new Date().getTimezoneOffset() / 60:
+                     return 'Local Time';
+                 case -12:
+                     return "Baker Island";
+                 case -11:
+                     return "Pago Pago";
+                 case -10:
+                     return "Honolulu";
+                 case -9.5:
+                     return "Marquesas Islands";
+                 case -9:
+                     return "Anchorage";
+                 case -8:
+                     return "Los Angeles";
+                 case -7:
+                     return "Denver";
+                 case -6:
+                     return "Mexico City";
+                 case -5:
+                     return "New York";
+                 case -4:
+                     return "Caracas";
+                 case -3.5:
+                     return "St. John's";
+                 case -3:
+                     return "Buenos Aires";
+                 case -2:
+                     return "South Georgia";
+                 case -1:
+                     return "Azores";
+                 case 0:
+                     return "London";
+                 case 1:
+                     return "Berlin";
+                 case 2:
+                     return "Paris";
+                 case 3:
+                     return "Moscow";
+                 case 3.5:
+                     return "Tehran";
+                 case 4:
+                     return "Dubai";
+                 case 4.5:
+                     return "Kabul";
+                 case 5:
+                     return "Karachi";
+                 case 5.5:
+                     return "Delhi";
+                 case 5.75:
+                     return "Kathmandu";
+                 case 6:
+                     return "Almaty";
+                 case 6.5:
+                     return "Yangon";
+                 case 7:
+                     return "Bangkok";
+                 case 8:
+                     return "Hong Kong";
+                 case 8.75:
+                     return "Eucla";
+                 case 9:
+                     return "Tokyo";
+                 case 9.5:
+                     return "Adelaide";
+                 case 10:
+                     return "Sydney";
+                 case 10.5:
+                     return "Lord Howe Island";
+                 case 11:
+                     return "Noumea";
+                 case 11.5:
+                     return "Norfolk Island";
+                 case 12:
+                     return "Suva";
+                 case 12.75:
+                     return "Chatham Islands";
+                 case 13:
+                     return "Apia";
+                 case 14:
+                     return "Kiritimati";
+                 default:
+                     return "";
+             }
+         }
+         
+         // Initial update of local time
+         updateLocalTime();
+         // Update local time every 100 milliseconds
+         setInterval(updateLocalTime, 100);
+         
+         // Initial update of world time table
+         updateTable();
+         // Update world time table every 1 second
+         setInterval(updateTable, 1000);
+      </script>
+   </body>
 </html>
