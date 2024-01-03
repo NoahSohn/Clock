@@ -1,92 +1,97 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>Stopwatch</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-</head>
-<body>
-    <div class="container">
-        <h1 class="center-align">Stopwatch</h1>
-        <div class="section">
+<html lang="en">
+   <head>
+      <title>Stopwatch</title>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+   </head>
+   <body>
+      <div class="container">
+         <h1 class="center-align">Stopwatch</h1>
+         <div class="section">
             <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
-                    <span class="card-title center-align" id="timer">00:00:00.000</span>
-                </div>
+               <div class="card-content white-text">
+                  <span class="card-title center-align" id="timer">00:00:00.000</span>
+               </div>
             </div>
-        </div>
-        <div class="section center-align">
+         </div>
+         <div class="section center-align">
             <button class="btn waves-effect waves-light" id="startStop">Start</button>
-        </div>
-    </div>
-
-    <script>
-// Get the timer element and start/stop button
-var timerElement = document.getElementById("timer");
-        var startStopButton = document.getElementById("startStop");
-
-        // Initialize variables
-        var startTime;
-        var elapsedTime = 0;
-        var timerInterval;
-
-        // Function to start or stop the timer based on button text
-        function startStopTimer() {
-            if (startStopButton.textContent === "Start") {
-                startTimer();
-            } else {
-                stopTimer();
-            }
-        }
-
-        // Function to start the timer
-        function startTimer() {
-            // Calculate the start time based on current time and elapsed time
-            startTime = Date.now() - elapsedTime;
-            // Update the timer every millisecond
-            timerInterval = setInterval(updateTimer, 1);
-            // Change the button text to "Stop"
-            startStopButton.textContent = "Stop";
-        }
-
-        // Function to stop the timer
-        function stopTimer() {
-            // Clear the timer interval
-            clearInterval(timerInterval);
-            // Change the button text to "Start"
-            startStopButton.textContent = "Start";
-        }
-
-        // Function to update the timer display
-        function updateTimer() {
-            // Calculate the current time and elapsed time
-            var currentTime = Date.now();
-            elapsedTime = currentTime - startTime;
-            // Format the elapsed time and update the timer element
-            var formattedTime = formatTime(elapsedTime);
-            timerElement.textContent = formattedTime;
-        }
-
-        // Function to format the time in HH:MM:SS.MMM format
-        function formatTime(time) {
-            var milliseconds = Math.floor(time % 1000);
-            var seconds = Math.floor((time / 1000) % 60);
-            var minutes = Math.floor((time / (1000 * 60)) % 60);
-            var hours = Math.floor((time / (1000 * 60 * 60)) % 24);
-
-            return (
-                pad(hours) + ":" +
-                pad(minutes) + ":" +
-                pad(seconds) + "." +
-                pad(milliseconds, 3)
-            );
-        }
-
-        // Function to pad a value with leading zeros
-        function pad(value, length = 2) {
-            return String(value).padStart(length, "0");
-        }
-
-        // Add event listener to the start/stop button
-        startStopButton.addEventListener("click", startStopTimer);    </script>
-</body>
+         </div>
+      </div>
+      <script>
+         // Get the timer element
+         var timerElement = document.getElementById("timer");
+         
+         // Get the start/stop button element
+         var startStopButton = document.getElementById("startStop");
+         
+         // Initialize variables for start time, elapsed time, and timer interval
+         var startTime, elapsedTime = 0, timerInterval;
+         
+         // Function to start or stop the timer based on the button text
+         function startStopTimer() {
+             if (startStopButton.textContent === "Start") {
+                 startTimer();
+             } else {
+                 stopTimer();
+             }
+         }
+         
+         // Function to start the timer
+         function startTimer() {
+             // Calculate the start time by subtracting the elapsed time from the current time
+             startTime = Date.now() - elapsedTime;
+             
+             // Start the timer interval, calling the updateTimer function every millisecond
+             timerInterval = setInterval(updateTimer, 1);
+             
+             // Change the button text to "Stop"
+             startStopButton.textContent = "Stop";
+         }
+         
+         // Function to stop the timer
+         function stopTimer() {
+             // Clear the timer interval
+             clearInterval(timerInterval);
+             
+             // Change the button text to "Start"
+             startStopButton.textContent = "Start";
+         }
+         
+         // Function to update the timer display
+         function updateTimer() {
+             // Get the current time
+             var currentTime = Date.now();
+             
+             // Calculate the elapsed time by subtracting the start time from the current time
+             elapsedTime = currentTime - startTime;
+             
+             // Update the timer element with the formatted time
+             timerElement.textContent = formatTime(elapsedTime);
+         }
+         
+         // Function to format the time in HH:MM:SS.MMM format
+         function formatTime(time) {
+             var milliseconds = Math.floor(time % 1000);
+             var seconds = Math.floor((time / 1000) % 60);
+             var minutes = Math.floor((time / (1000 * 60)) % 60);
+             var hours = Math.floor((time / (1000 * 60 * 60)) % 24);
+         
+             return (
+                 pad(hours) + ":" +
+                 pad(minutes) + ":" +
+                 pad(seconds) + "." +
+                 pad(milliseconds, 3)
+             );
+         }
+         
+         // Function to pad a value with leading zeros
+         function pad(value, length = 2) {
+             return String(value).padStart(length, "0");
+         }
+         
+         // Add event listener to the start/stop button, calling the startStopTimer function
+         startStopButton.addEventListener("click", startStopTimer);
+      </script>
+   </body>
 </html>
