@@ -2,17 +2,26 @@
 <html>
 <head>
     <title>Stopwatch</title>
-    <style>
-    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 </head>
 <body>
-    <h1>Stopwatch</h1>
-    <div id="timer">00:00:00.000</div>
-    <button id="startStop">Start</button>
+    <div class="container">
+        <h1 class="center-align">Stopwatch</h1>
+        <div class="section">
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title center-align" id="timer">00:00:00.000</span>
+                </div>
+            </div>
+        </div>
+        <div class="section center-align">
+            <button class="btn waves-effect waves-light" id="startStop">Start</button>
+        </div>
+    </div>
 
     <script>
-        // Get the timer element and start/stop button
-        var timerElement = document.getElementById("timer");
+// Get the timer element and start/stop button
+var timerElement = document.getElementById("timer");
         var startStopButton = document.getElementById("startStop");
 
         // Initialize variables
@@ -78,7 +87,6 @@
         }
 
         // Add event listener to the start/stop button
-        startStopButton.addEventListener("click", startStopTimer);
-    </script>
+        startStopButton.addEventListener("click", startStopTimer);    </script>
 </body>
 </html>

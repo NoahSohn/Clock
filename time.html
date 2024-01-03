@@ -1,32 +1,372 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Current Time</title>
+    <title>World Clock</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <script>
-        function getCurrentTime() {
-            var xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    var response = JSON.parse(xhr.responseText);
-                    var currentTime = new Date(response.datetime);
-                    var timeString = currentTime.toLocaleTimeString();
-                    document.getElementById("time").innerHTML = timeString;
+        function updateTime() {
+            var currentTime = new Date();
+            var timeElements = document.getElementsByClassName("time");
+
+            for (var i = 0; i < timeElements.length; i++) {
+                var timeZone = timeElements[i].getAttribute("data-timezone");
+                var userTimeZoneOffset = currentTime.getTimezoneOffset();
+                var timeZoneOffset = (timeZone * 60) + userTimeZoneOffset;
+                var time = new Date(currentTime.getTime() + timeZoneOffset * 60000);
+
+                var hours = time.getHours();
+                var minutes = time.getMinutes();
+                var seconds = time.getSeconds();
+                var tenths = Math.floor(time.getMilliseconds() / 100);
+                var period = hours >= 12 ? "PM" : "AM";
+
+                // Convert to 12-hour format
+                hours = hours % 12 || 12;
+
+                // Add leading zeros if necessary
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                var timeString = hours + ":" + minutes + ":" + seconds + "." + tenths + " " + period;
+                var locationString = "";
+
+                // Determine the location based on the timezone
+                switch (timeZone) {
+                    case String(userTimeZoneOffset / 60):
+                        locationString = "Your Local Time: " + timeString;
+                        break;
+                    case "-12":
+                        locationString = "Time in UTC " + timeZone + ": " + timeString + " (Baker Island)";
+                        break;
+                    case "-11":
+                        locationString = "Time in UTC " + timeZone + ": " + timeString + " (Pago Pago)";
+                        break;
+                    case "-10":
+                        locationString = "Time in UTC " + timeZone + ": " + timeString + " (Honolulu)";
+                        break;
+                    case "-9.5":
+                        locationString = "Time in UTC " + timeZone + ": " + timeString + " (Marquesas Islands)";
+                        break;
+                    case "-9":
+                        locationString = "Time in UTC " + timeZone + ": " + timeString + " (Anchorage)";
+                        break;
+                    case "-8":
+                        locationString = "Time in UTC " + timeZone + ": " + timeString + " (Los Angeles)";
+                        break;
+                    case "-7":
+                        locationString = "Time in UTC " + timeZone + ": " + timeString + " (Denver)";
+                        break;
+                    case "-6":
+                        locationString = "Time in UTC " + timeZone + ": " + timeString + " (Mexico City)";
+                        break;
+                    case "-5":
+                        locationString = "Time in UTC " + timeZone + ": " + timeString + " (New York)";
+                        break;
+                    case "-4":
+                        locationString = "Time in UTC " + timeZone + ": " + timeString + " (Caracas)";
+                        break;
+                    case "-3.5":
+                        locationString = "Time in UTC " + timeZone + ": " + timeString + " (St. John's)";
+                        break;
+                    case "-3":
+                        locationString = "Time in UTC " + timeZone + ": " + timeString + " (Buenos Aires)";
+                        break;
+                    case "-2":
+                        locationString = "Time in UTC " + timeZone + ": " + timeString + " (South Georgia)";
+                        break;
+                    case "-1":
+                        locationString = "Time in UTC " + timeZone + ": " + timeString + " (Azores)";
+                        break;
+                    case "0":
+                        locationString = "Time in UTC " + timeZone + ": " + timeString + " (London)";
+                        break;
+                    case "1":
+                        locationString = "Time in UTC " + timeZone + ": " + timeString + " (Berlin)";
+                        break;
+                    case "2":
+                        locationString = "Time in UTC " + timeZone + ": " + timeString + " (Paris)";
+                        break;
+                    case "3":
+                        locationString = "Time in UTC " + timeZone + ": " + timeString + " (Moscow)";
+                        break;
+                    case "3.5":
+                        locationString = "Time in UTC " + timeZone + ": " + timeString + " (Tehran)";
+                        break;
+                    case "4":
+                        locationString = "Time in UTC " + timeZone + ": " + timeString + " (Dubai)";
+                        break;
+                    case "4.5":
+                        locationString = "Time in UTC " + timeZone + ": " + timeString + " (Kabul)";
+                        break;
+                    case "5":
+                        locationString = "Time in UTC " + timeZone + ": " + timeString + " (Karachi)";
+                        break;
+                    case "5.5":
+                        locationString = "Time in UTC " + timeZone + ": " + timeString + " (Delhi)";
+                        break;
+                    case "5.75":
+                        locationString = "Time in UTC " + timeZone + ": " + timeString + " (Kathmandu)";
+                        break;
+                    case "6":
+                        locationString = "Time in UTC " + timeZone + ": " + timeString + " (Almaty)";
+                        break;
+                    case "6.5":
+                        locationString = "Time in UTC " + timeZone + ": " + timeString + " (Yangon)";
+                        break;
+                    case "7":
+                        locationString = "Time in UTC " + timeZone + ": " + timeString + " (Bangkok)";
+                        break;
+                    case "8":
+                        locationString = "Time in UTC " + timeZone + ": " + timeString + " (Hong Kong)";
+                        break;
+                    case "8.75":
+                        locationString = "Time in UTC " + timeZone + ": " + timeString + " (Eucla)";
+                        break;
+                    case "9":
+                        locationString = "Time in UTC " + timeZone + ": " + timeString + " (Tokyo)";
+                        break;
+                    case "9.5":
+                        locationString = "Time in UTC " + timeZone + ": " + timeString + " (Adelaide)";
+                        break;
+                    case "10":
+                        locationString = "Time in UTC " + timeZone + ": " + timeString + " (Sydney)";
+                        break;
+                    case "10.5":
+                        locationString = "Time in UTC " + timeZone + ": " + timeString + " (Lord Howe Island)";
+                        break;
+                    case "11":
+                        locationString = "Time in UTC " + timeZone + ": " + timeString + " (Noumea)";
+                        break;
+                    case "11.5":
+                        locationString = "Time in UTC " + timeZone + ": " + timeString + " (Norfolk Island)";
+                        break;
+                    case "12":
+                        locationString = "Time in UTC " + timeZone + ": " + timeString + " (Suva)";
+                        break;
+                    case "12.75":
+                        locationString = "Time in UTC " + timeZone + ": " + timeString + " (Chatham Islands)";
+                        break;
+                    case "13":
+                        locationString = "Time in UTC " + timeZone + ": " + timeString + " (Apia)";
+                        break;
+                    case "14":
+                        locationString = "Time in UTC " + timeZone + ": " + timeString + " (Kiritimati)";
+                        break;
+                    // Add more time zones and their corresponding cities as needed
+                    default:
+                        locationString = "Time in UTC " + timeZone + ": " + timeString;
+                        break;
                 }
-            };
-            // Use WorldTimeAPI
-            xhr.open("GET", "http://worldtimeapi.org/api/timezone/Etc/UTC", true);
-            xhr.send();
+
+                timeElements[i].innerHTML = locationString;
+            }
         }
 
-        // Call getCurrentTime once when the page loads
-        getCurrentTime();
-
-        // Then keep updating it every second
-        setInterval(getCurrentTime, 1000);
+        // Update time every 100 milliseconds
+        setInterval(updateTime, 100);
     </script>
 </head>
 <body>
-    <h1>Current Time:</h1>
-    <p id="time"></p>
+    <div class="container">
+        <h1 class="center-align">World Clock</h1>
+        <div class="section">
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title center-align time" data-timezone="-12"></span>
+                </div>
+            </div>
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title center-align time" data-timezone="-11"></span>
+                </div>
+            </div>
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title center-align time" data-timezone="-10"></span>
+                </div>
+            </div>
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title center-align time" data-timezone="-9.5"></span>
+                </div>
+            </div>
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title center-align time" data-timezone="-9"></span>
+                </div>
+            </div>
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title center-align time" data-timezone="-8"></span>
+                </div>
+            </div>
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title center-align time" data-timezone="-7"></span>
+                </div>
+            </div>
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title center-align time" data-timezone="-6"></span>
+                </div>
+            </div>
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title center-align time" data-timezone="-5"></span>
+                </div>
+            </div>
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title center-align time" data-timezone="-4"></span>
+                </div>
+            </div>
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title center-align time" data-timezone="-3.5"></span>
+                </div>
+            </div>
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title center-align time" data-timezone="-3"></span>
+                </div>
+            </div>
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title center-align time" data-timezone="-2"></span>
+                </div>
+            </div>
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title center-align time" data-timezone="-1"></span>
+                </div>
+            </div>
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title center-align time" data-timezone="0"></span>
+                </div>
+            </div>
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title center-align time" data-timezone="1"></span>
+                </div>
+            </div>
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title center-align time" data-timezone="2"></span>
+                </div>
+            </div>
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title center-align time" data-timezone="3"></span>
+                </div>
+            </div>
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title center-align time" data-timezone="3.5"></span>
+                </div>
+            </div>
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title center-align time" data-timezone="4"></span>
+                </div>
+            </div>
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title center-align time" data-timezone="4.5"></span>
+                </div>
+            </div>
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title center-align time" data-timezone="5"></span>
+                </div>
+            </div>
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title center-align time" data-timezone="5.5"></span>
+                </div>
+            </div>
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title center-align time" data-timezone="5.75"></span>
+                </div>
+            </div>
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title center-align time" data-timezone="6"></span>
+                </div>
+            </div>
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title center-align time" data-timezone="6.5"></span>
+                </div>
+            </div>
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title center-align time" data-timezone="7"></span>
+                </div>
+            </div>
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title center-align time" data-timezone="8"></span>
+                </div>
+            </div>
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title center-align time" data-timezone="8.75"></span>
+                </div>
+            </div>
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title center-align time" data-timezone="9"></span>
+                </div>
+            </div>
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title center-align time" data-timezone="9.5"></span>
+                </div>
+            </div>
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title center-align time" data-timezone="10"></span>
+                </div>
+            </div>
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title center-align time" data-timezone="10.5"></span>
+                </div>
+            </div>
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title center-align time" data-timezone="11"></span>
+                </div>
+            </div>
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title center-align time" data-timezone="11.5"></span>
+                </div>
+            </div>
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title center-align time" data-timezone="12"></span>
+                </div>
+            </div>
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title center-align time" data-timezone="12.75"></span>
+                </div>
+            </div>
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title center-align time" data-timezone="13"></span>
+                </div>
+            </div>
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title center-align time" data-timezone="14"></span>
+                </div>
+            </div>
+            <!-- Add more time zones and their corresponding cities as needed -->
+        </div>
+    </div>
 </body>
 </html>
