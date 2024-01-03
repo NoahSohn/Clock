@@ -4,9 +4,23 @@
     <title>World Clock</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <script>
-        function updateTime() {
-            var currentTime = new Date();
-            var timeElements = document.getElementsByClassName("time");
+    function updateTime() {
+        var currentTime = new Date();
+        var timeElements = Array.from(document.getElementsByClassName("time"));
+        var parentElement = timeElements[0].parentNode;
+
+        // Sort the time elements based on the timezone
+        timeElements.sort((a, b) => {
+            var timeZoneA = parseInt(a.getAttribute("data-timezone"));
+            var timeZoneB = parseInt(b.getAttribute("data-timezone"));
+            var userTimeZoneOffset = -currentTime.getTimezoneOffset() / 60;
+            return Math.abs(timeZoneA - userTimeZoneOffset) - Math.abs(timeZoneB - userTimeZoneOffset);
+        });
+
+        // Reorder the elements in the DOM
+        timeElements.forEach((element) => {
+            parentElement.appendChild(element);
+        });
 
             for (var i = 0; i < timeElements.length; i++) {
                 var timeZone = timeElements[i].getAttribute("data-timezone");
