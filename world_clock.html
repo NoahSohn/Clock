@@ -63,7 +63,11 @@
                  const formattedTime = new Date(time.getTime() + timeZoneOffset * 60000).toLocaleTimeString('en-US', { hour12: false, hour: 'numeric', minute: 'numeric', second: 'numeric' });
                  const city = getTimezoneCity(timezone);
                  const row = document.createElement('tr');
-                 row.innerHTML = `<td>${formattedTime}</td><td>UTC ${timezone}</td><td>${city}</td>`;
+                 if (timezone === 0) {
+                     row.innerHTML = `<td>${formattedTime}</td><td>UTC</td><td>${city}</td>`;
+                 } else {
+                     row.innerHTML = `<td>${formattedTime}</td><td>UTC${timezone}</td><td>${city}</td>`;
+                 }
                  tableBody.appendChild(row);
              });
          }
